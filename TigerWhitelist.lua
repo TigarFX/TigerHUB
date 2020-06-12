@@ -3,7 +3,7 @@ local hmac
 do
 
     local unpack, table_concat, byte, char, string_rep, sub, string_format, floor, ceil, min, max =
-       table.unpack or unpack, table.concat, string.byte, string.char, string.rep, string.sub, string.format, math.floor, math.ceil, math.min, math.max;shared.unpack = unpack;
+       table.unpack or unpack, table.concat, string.byte, string.char, string.rep, string.sub, string.format, math.floor, math.ceil, math.min, math.maxshared.unpack = unpack
 
 
     local AND, OR, XOR, SHL, SHR, ROL, ROR, HEX
@@ -332,59 +332,59 @@ do
     end
 
     function hmac(secret, data)
-        return sha512ext(512, secret .. data .. secret);
-    end; -- Init sha library
-end;
+        return sha512ext(512, secret .. data .. secret)
+    end -- Init sha library
+end
 
-local chars = {};
+local chars = {}
 
 for i = ("a"):byte(), ("z"):byte() do
-    table.insert(chars, string.char(i));
-end;
+    table.insert(chars, string.char(i))
+end
 
 for i = ("A"):byte(), ("Z"):byte() do
-    table.insert(chars, string.char(i));
-end;
+    table.insert(chars, string.char(i))
+end
 
 for i = ("0"):byte(), ("9"):byte() do
-    table.insert(chars, string.char(i));
-end;
+    table.insert(chars, string.char(i))
+end
 
 local function randomString(length)
-    local str = "";
+    local str = ""
     
     for i = 1, length do
-        str = str .. chars[math.random(1, #chars)];
-    end;
+        str = str .. chars[math.random(1, #chars)]
+    end
 
-    return str;
-end;
-
-
-print("Checking Whitelist . . .");
+    return str
+end
 
 
+print("Checking Whitelist . . .")
 
 
 
-local secretKey1 = "//*,KmO-D!c&:f{79[q6J_gf+x5*J3tOWU*oH=dubL9aK='7>0>'~-h*A:?,N";
-local secretKey2 = "E);{Q6_<bkrEo;ITBzLfLxTdpMuzSzVIs?}5vyus3l@>+?=>O}uL-(A}M/PJ`w";
+
+
+local secretKey1 = "//*,KmO-D!c&:f{79[q6J_gf+x5*J3tOWU*oH=dubL9aK='7>0>'~-h*A:?,N"
+local secretKey2 = "E){Q6_<bkrEoITBzLfLxTdpMuzSzVIs?}5vyus3l@>+?=>O}uL-(A}M/PJ`w"
 
 
 
-local Random = hmac(secretKey1, randomString(12));
+local Random = hmac(secretKey1, randomString(12))
 
 
-local serverData = game:HttpGet("https://tigerhublol.glitch.me/checkWhitelist?Key=" .. Key .. "&gamer=" .. Random); 
-local predictedData = hmac(secretKey2, Key .. Random);
+local serverData = game:HttpGet("https://tigerhublol.glitch.me/checkWhitelist?Key=" .. Key .. "&gamer=" .. Random) 
+local predictedData = hmac(secretKey2, Key .. Random)
 
 print(serverData) 
 if(serverData == predictedData) then
-    print("Whitelisted");
+    print("Whitelisted")
 else
-    print("Not Whitelisted");
-    return;
-end;
+    print("Not Whitelisted")
+    return
+end
 
 
-print("You are whitelisted");
+print("You are whitelisted")
